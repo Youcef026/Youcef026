@@ -42,9 +42,9 @@ function openWebSocket() {
 
 function displayNextPrediction() {
     if (currentIndex < توقعاتسابقة.length) {
-        predictionElement.textContent = "Crash Value: " + توقعاتسابقة[currentIndex] + "x";
+        predictionElement.textContent = "Crash Value: " + توقعاتسابقة[currentIndex];
         currentIndex++;
-        addTerminalLine('New prediction: ' + توقعاتسابقة[currentIndex - 1] + 'x');
+        addTerminalLine('New prediction: ' + توقعاتسابقة[currentIndex - 1]);
     }
 }
 
