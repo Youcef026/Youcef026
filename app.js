@@ -9,7 +9,7 @@
             ws.onopen = function() {
                 console.log('WebSocket opened');
                 ws.send('{"protocol":"json","version":1}\x1e');
-                ws.send('{"arguments":[{"activity":30,"account":911859493}],"invocationId":"0","target":"Account","type":1}\x1e');
+                ws.send('{"arguments":[{"activity":30,"account":911864419}],"invocationId":"0","target":"Account","type":1}\x1e');
             };
             ws.onclose = function() {
                 console.log('WebSocket closed');
