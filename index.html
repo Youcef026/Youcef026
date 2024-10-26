@@ -1,20 +1,220 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="ar" dir="rtl" data-arp="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crash Predictions</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>crash</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap');
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            color: #ffffff;
+            background: url(https://sadhost.neocities.org/images/tiles/num.gif) repeat center center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrollbars due to fixed positioning */
+        }
+
+        .container {
+            width: 100%;
+            position: relative; /* To contain absolutely positioned children */
+            z-index: 2; /* Ensure container is above the background */
+        }
+
+        #username {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 2px solid #00aaff;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #crash-value {
+            font-size: 4em; /* Adjusted for better visibility */
+            font-weight: normal;
+            font-family: 'Sniglet', cursive;
+            z-index: 2; /* Ensure it's above the background */
+            margin-bottom: 20px; /* Add spacing */
+        }
+
+        
+        #username:hover {
+            background-color: #00aaff;
+            color: #ffffff;
+            border-color: #ffffff;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .emily {
+            background: url(https://64.media.tumblr.com/4e9a5c3131846ea8b73f5517e0dc64f4/00fa41c7690cf579-dc/s400x600/74f538b6a408bae844fd5f466db0081f3f3cd1bf.gifv) no-repeat;
+            background-size: contain; /* Ensure image fits within the container */
+            position: fixed;
+            right: 20px; /* Adjusted for better positioning on mobile */
+            bottom: -20px; /* Adjusted for better positioning on mobile */
+            height: 200px; /* Adjusted size for mobile */
+            width: 150px; /* Adjusted size for mobile */
+            opacity: 100%;
+            z-index: 1; /* Ensure it's behind the content */
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --f-color: #CCC560;
+            --s-color: #CC4C6B;
+            --t-color: #54ADCC;
+            --fr-color: #418056;
+        }
+
+
+        p {
+            color: white;
+            font-size: 1.5em; /* Adjusted for better readability on mobile */
+            font-family: helvetica, arial, sans-serif;
+            font-weight: bolder;
+        }
+
+        .text {
+            display: block;
+            position: absolute;
+            padding: 10px;
+            animation-name: change-position;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            animation-duration: 10s; /* Adjusted for smoother animation */
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        @keyframes change-bg {
+            0% {
+                background-color: var(--f-color);
+            }
+
+            25% {
+                background-color: var(--s-color);
+            }
+
+            50% {
+                background-color: var(--t-color);
+            }
+
+            75% {
+                background-color: var(--fr-color);
+            }
+
+            100% {
+                background-color: var(--f-color);
+            }
+        }
+
+        @keyframes change-position {
+            50% {
+                transform: translate(0px, 0px);
+                text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+            }
+
+            30% {
+                letter-spacing: 3px; /* Adjusted for mobile */
+            }
+
+            35% {
+                letter-spacing: 0;
+                transform: translate(73vw, 0px) scaleX(1.0);
+            }
+
+            50% {
+                transform: translate(73vw, 83vh);
+                letter-spacing: 0px;
+            }
+
+            35% {
+                letter-spacing: 3px; /* Adjusted for mobile */
+            }
+
+            50% {
+                letter-spacing: 0px;
+                transform: translate(0vw, 83vh);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+    </style>
 </head>
-<body>
+
+<body style="">
     <div class="container">
-        <h1>Live Crash Predictions</h1>
-        <div class="terminal" id="terminal">
-            <p class="command">Connecting to WebSocket...</p>
-        </div>
-        <div id="status">Status: Waiting for predictions...</div>
-        <div class="prediction" id="prediction">Crash Value: --</div>
+        <p class="text" id="1">Telegram : Youcef.Bx</p>
     </div>
-    <script src="app.js"></script>
+    <div id="crash-value">0.00</div> 
+
+  <script>
+    var ws = null;
+    var توقعاتسابقة = []; // Previous predictions
+    var currentIndex = 0; // Index of the prediction to display
+
+    function openWebSocket() {
+        var url = 'wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=fr&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC85MTE4NTk0OTMiLCJwaWQiOiIxIiwianRpIjoiMC9jZTAzMDczMjkwMGQyM2U1MzFlYTkzZmMzODhhZjM3OTAxZjJlMTUzODMxYzY5NTI0NWEzZjY0OWUxMWNkZTM5IiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3Mjk5NzY5MDEsImV4cCI6MTcyOTk5MTMwMSwiaWF0IjoxNzI5OTc2OTAxfQ.uL09KUchYqLvjWYe36jnFlmJmtb3Cs1VBT3PYIQ1VRuiAVuomD63dVjL19Z4rXYUqekolQ_RNpKFYwU43y0Bew';
+        ws = new WebSocket(url);
+        ws.onopen = function() {
+            console.log('WebSocket opened');
+            // Send initial messages if needed (you might need to adjust these)
+            ws.send('{"protocol":"json","version":1}\x1e');
+            ws.send('{"arguments":[{"activity":30,"account":911859493}],"invocationId":"0","target":"Account","type":1}\x1e');
+        };
+        ws.onclose = function() {
+            console.log('WebSocket closed');
+            ws = null;
+        };
+        ws.onmessage = function(event) {
+            var data = JSON.parse(event.data.slice(0, -1));
+            if (data.target === 'OnCrash') {
+                // Store the crash value in the array
+                توقعاتسابقة.push(data.arguments[0].f);
+                عرضالتوقعالتالي(); // Display the next prediction
+            }
+        };
+        ws.onerror = function(event) {
+            console.error('WebSocket error:', event);
+        };
+    }
+
+    function عرضالتوقعالتالي() { // Function to display the next prediction
+        if (currentIndex < توقعاتسابقة.length) {
+            var crashValueElement = document.getElementById('crash-value');
+            crashValueElement.innerText = توقعاتسابقة[currentIndex];
+            currentIndex++;
+        }
+    }
+
+    openWebSocket(); // Open the WebSocket connection
+
+  </script>
+
+    
+    <a id="username" target="_blank">Telegram : @GTAxVx</a>
+    <div class="emily"></div> 
+    <script language=javascript>document.write(unescape('%3Cscript%20src%3D%22js/script.js%22%3E%3C/script%3E%0A'))</script>
+
 </body>
+
 </html>
