@@ -173,7 +173,7 @@
     var currentIndex = 0; // Index of the prediction to display
 
     function openWebSocket() {
-        var url = 'wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=fr&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC85MTE4NTk0OTMiLCJwaWQiOiIxIiwianRpIjoiMC8zZDBmMTZlMzU2NzcwOTBlZTA5OTJjY2EyY2NkMDA3ZjliOGE2NGI5NzgxNjQyN2I2ZjBkNmIzOGMwODZmMzFmIiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MzA2NzIzNzcsImV4cCI6MTczMDY4Njc3NywiaWF0IjoxNzMwNjcyMzc3fQ.4K9aIhSO5-DY_0-8do6SxLjqIIRQALD70XWTWwtijbzzYp0wC-X2Evmbp6_fF8MZhUPGwIxjx6cnl7f1mgPeiA';
+        var url = 'wss://1xbet.com/games-frame/sockets/crash?whence=50&fcountry=8&ref=1&gr=70&appGuid=games-web-master&lng=fr&access_token=eyJhbGciOiJFUzI1NiIsImtpZCI6IjEiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiI1MC85MTE4NTk0OTMiLCJwaWQiOiIxIiwianRpIjoiMC9jM2Q0MGI1OTU1MzZiNGVhMDNmMGQ5ZTNmN2Y4YWJiOWFiMmUzNWEyNDFhNjIxMWFmZTM2ZWQ1MDZmMjgwZGI3IiwiYXBwIjoiTkEiLCJpbm5lciI6InRydWUiLCJuYmYiOjE3MzExNjI3NTgsImV4cCI6MTczMTE3NzE1OCwiaWF0IjoxNzMxMTYyNzU4fQ.Z9e0Pb2dT1176R7f_5SggZMFzlv2EQ2XHBPdUkTtIOm0AR7VyuTq3z4uW2cg75zKeA6tvs-ZLFaklUbrTviJUw';
         ws = new WebSocket(url);
         ws.onopen = function() {
             console.log('WebSocket opened');
